@@ -6,6 +6,8 @@ const typingDom = document.querySelector(".typing");
 const yanlisHarfDom = document.querySelector(".yanlisHarf span");
 let skorDogruDom = document.querySelector(".skor1 span");
 let skorYanlisDom = document.querySelector(".skor2 span");
+let dakikaDom = document.querySelector(".dakika");
+let saniyeDom = document.querySelector(".saniye");
 
 let kelime;
 let dogruHarfDizisi = [];
@@ -14,7 +16,34 @@ let tahminHakki;
 let sayacDogru = 0;
 let sayacYanlis = 0;
 
+let dakika = 0;
+let saniye = 0;
+
+//stopwatch fonksiyonu
+function stopwatch() {
+    saniye++;
+    if (saniye < 10) {
+        saniyeDom.innerHTML = "0" + saniye;
+    } else {
+        saniyeDom.innerHTML = saniye;
+    }
+    if (saniye == 59) {
+        saniye = 0;
+        dakika++;
+        if (dakika < 10) {
+            dakikaDom.innerHTML = "0" + dakika;
+        } else {
+            dakikaDom.innerHTML = dakika;
+        }
+    }
+}
+setInterval(stopwatch, 1000);
+
+
+
+
 function rastgeleKelime() {
+    
     let rastgeleSayi = kelimeler[Math.floor(Math.random() * kelimeler.length)];
     kelime = rastgeleSayi.kelime;
     let ipUcu = rastgeleSayi.ipUcu;
@@ -31,33 +60,36 @@ function rastgeleKelime() {
         htmlTaslak += '<input type="text" disabled>'
     }
     inputsDom.innerHTML = htmlTaslak;
+
 }
 
 
 
 function oyunuBaslatma(e) {
-    let key = e.target.value;
-    if (key.match(/^[A-Za-z]+$/) && !yanlisHarfDizisi.includes(` ${key}`) && !dogruHarfDizisi.includes(key)) {
+    //girilen harf alındı
+    let harf = e.target.value;
+    if (harf.match(/^[A-Za-z]+$/) && !yanlisHarfDizisi.includes(` ${harf}`) && !dogruHarfDizisi.includes(harf)) {
         yanlisHarfDom.innerHTML = "";
-        if (kelime.includes(key)) {
+        if (kelime.includes(harf)) {
             for (let i = 0; i < kelime.length; i++) {
-                if (kelime[i] === key) {
-                    dogruHarfDizisi.push(key);
-                    inputsDom.querySelectorAll("input")[i].value = key;
+                if (kelime[i] === harf) {
+                    dogruHarfDizisi.push(harf);
+                    inputsDom.querySelectorAll("input")[i].value = harf;
                 }
             }
         }
         else {
             tahminHakki--;
-            yanlisHarfDizisi.push(` ${key}`);
+            yanlisHarfDizisi.push(` ${harf}`);
         }
         kalanHakDom.innerHTML = tahminHakki;
         yanlisHarfDom.innerHTML = yanlisHarfDizisi;
 
     }
+    //gizli input alanı
     typingDom.value = "";
 
-
+    //girilen son harfi göstermesi için fonksiyon gecikmeli başlatıldı
     setTimeout(() => {
         if (dogruHarfDizisi.length === kelime.length) {
             alert(`Kazandın ${kelime.toUpperCase()}`);
@@ -72,8 +104,9 @@ function oyunuBaslatma(e) {
             for (let i = 0; i < kelime.length; i++) {
                 inputsDom.querySelectorAll("input")[i].value = kelime[i];
             }
+
         }
-    }, 300);
+    }, 1000);
 }
 
 
