@@ -69,3 +69,14 @@ body{
     z-index: -999;
     position: absolute;
 }
+
+.skor1{
+    color:#006d77;
+    font-weight: 500;
+}
+
+.skor2{
+    color:#d90429;
+    font-weight: 500;
+}
+
