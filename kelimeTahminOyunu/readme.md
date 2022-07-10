@@ -1,4 +1,5 @@
 # kelime tahmin oyunu
+[OYUNU OYNA](https://cute-custard-239002.netlify.app/)
 ## oyunun özelikleri:
 + sürenin olması
 + kelimeyle ilgili ipucu verilmesi
