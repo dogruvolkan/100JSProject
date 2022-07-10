@@ -32,10 +32,34 @@ img{
 h1{
     font-size:40px;
     font-weight: 500;
-    margin:30px 0;
+    margin:30px 0 15px 0;
 }
 
 
 .content .column{
    margin:0 10px;
+}
+
+.disable{
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+input{
+    width:336px !important;
+}
+
+.form-select:focus {
+    border-color: #4A98F7;
+    outline: 0;
+    box-shadow: none;
+}
+
+
+
+.btn-check:focus+.btn-danger, .btn-danger:focus {
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+    box-shadow: none !important;
 }
